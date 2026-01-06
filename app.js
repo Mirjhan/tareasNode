@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const {conectar} = require('./connection')
 const app = express()
 const bodyParser = require('body-parser')
 const port = 3000
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`)
+  await conectar()
 })
