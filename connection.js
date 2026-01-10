@@ -3,7 +3,8 @@ const { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize('incidencias', 'postgres', '123456789', {
     host: 'localhost',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    logging: false,
 });
 
 const conectar = async () => {
@@ -14,4 +15,5 @@ const conectar = async () => {
         console.error('Unable to connect to the database:', error);
     }
 };
-module.exports = {conectar, sequelize}
+
+module.exports = { conectar, sequelize }

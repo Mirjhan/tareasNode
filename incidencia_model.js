@@ -1,0 +1,35 @@
+const { Model, DataTypes } = require('sequelize')
+const { sequelize } = require('./connection')
+
+class Incidencia extends Model { }
+Incidencia.init(
+    {
+        nombre: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        descripcion: {
+            type: DataTypes.STRING(200),
+            allowNull: false,
+        },
+        estado: {
+            type: DataTypes.CHAR(1),
+            allowNull: false,
+        }
+    },
+    {
+        sequelize,
+        modelName: 'Incidencia',
+        timestamps: false,
+    }
+
+);
+
+
+const sync = async () => {
+    await Incidencia.sync({ force: false })
+}
+
+sync()
+
+module.exports = Incidencia
