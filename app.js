@@ -34,6 +34,17 @@ app.post('/incidencia/create', async(req, res) => {
   }
 })
 
+app.delete('/incidencia/delete/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const incidenciaEliminada = await Incidencia.findByPk(id)
+    await incidenciaEliminada.destroy()
+    res.status(200).json({message: 'Se elimino la incidencia', incidenciaEliminada})
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
