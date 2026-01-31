@@ -19,6 +19,21 @@ app.get('/incidencia', async (req, res) => {
   }
 })
 
+app.post('/incidencia/create', async(req, res) => {
+
+  const {nombre, descripcion, estado } = req.body
+  try {
+    const nuevaIncidencia = await Incidencia.create({
+      nombre : nombre,
+      descripcion : descripcion,
+      estado : estado
+    })
+    res.status(200).json(nuevaIncidencia)
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
