@@ -20,8 +20,8 @@ app.get('/incidencia', async (req, res) => {
 })
 
 app.post('/incidencia/create', async(req, res) => {
-
   const {nombre, descripcion, estado } = req.body
+
   try {
     const nuevaIncidencia = await Incidencia.create({
       nombre : nombre,
@@ -31,6 +31,22 @@ app.post('/incidencia/create', async(req, res) => {
     res.status(200).json(nuevaIncidencia)
   } catch (error) {
     return res.status(500).json(error)
+  }
+})
+
+app.put('/incidencia/update', async (req, res) => {
+  try {
+    const {id, nombre, descripcion, estado} = req.body
+    const result = await Incidencia.findByPk(id)
+    result.set({
+      nombre: nombre,
+      descripcion: descripcion,
+      estado: estado
+    })
+    await result.save()
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(500).json(error)
   }
 })
 
