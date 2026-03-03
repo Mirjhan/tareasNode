@@ -6,6 +6,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const port = 3000
 
+app.use('/public', express.static('public'))
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

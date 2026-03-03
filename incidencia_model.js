@@ -15,6 +15,10 @@ Incidencia.init(
         estado: {
             type: DataTypes.CHAR(1),
             allowNull: false,
+        },
+        imagen:{
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     },
     {
