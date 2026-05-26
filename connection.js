@@ -1,9 +1,15 @@
 const { Sequelize } = require('sequelize')
+const {
+    HOST,
+    DATABASE,
+    USER,
+    PASSWORD,
+    DIALECT_DATABASE,
+} = process.env
 
-
-const sequelize = new Sequelize('incidencias', 'postgres', '123456789', {
-    host: 'localhost',
-    dialect: 'postgres',
+const sequelize = new Sequelize( DATABASE, USER, PASSWORD, {
+    host: HOST,
+    dialect: DIALECT_DATABASE,
     logging: false,
 });
 
