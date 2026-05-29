@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-const { sequelize } = require('./connection')
+const { sequelize } = require('../../connection')
 
 class Incidencia extends Model { }
 Incidencia.init(
@@ -22,9 +22,10 @@ Incidencia.init(
         }
     },
     {
+        paranoid: true,
         sequelize,
         modelName: 'Incidencia',
-        timestamps: false,
+        timestamps: true,
     }
 
 );
