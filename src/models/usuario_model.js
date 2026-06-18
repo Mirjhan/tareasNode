@@ -32,7 +32,7 @@ Usuario.init(
             allowNull: false,
         },
         telefono: {
-            type: DataTypes.INTEGER(9),
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         email: {
@@ -60,13 +60,16 @@ Usuario.init(
     }
 
 )
+
+Usuario.belongsTo(TipoDocumento, { foreignKey: 'id_tipo_documento'})
+Usuario.belongsTo(TipoUsuario, { foreignKey: 'id_tipo_usuario'})
+
 const sync = async () => {
     await Usuario.sync({ force: false })
 }
 
 sync()
 
-Usuario.belongsTo(TipoDocumento, { foreignKey: 'id_tipo_documento'})
-Usuario.belongsTo(TipoUsuario, { foreignKey: 'id_tipo_usuario'})
+
 
 module.exports = Usuario

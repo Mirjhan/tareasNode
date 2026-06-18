@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Incidencia = require('../../incidencia_model')
+const Incidencia = require('../models/incidencia_model')
 const { getIncidencia, createIncidencia, updateIncidencia, deleteIncidencia, createIncidenciaConImagen, updateIncidenciaConImagen } = require('../controllers/incidencia_controller')
 const { uploadFileMiddleware } = require('../utils/middlewares/uploas_file_middleware')
 
