@@ -1,4 +1,4 @@
-const Incidencia = require('../../incidencia_model')
+const Incidencia = require('../models/incidencia_model')
 
 const getIncidencia = async (req, res) => {
     try {
@@ -41,8 +41,10 @@ const updateIncidencia = async (req, res) => {
 }
 
 const deleteIncidencia = async (req, res) => {
+    
     const { id } = req.params
     try {
+
         const incidenciaEliminada = await Incidencia.findByPk(id)
         await incidenciaEliminada.destroy()
         return res.status(200).json(incidenciaEliminada)
@@ -63,6 +65,7 @@ const createIncidenciaConImagen = async (req, res) => {
         })
          return res.status(200).json(nuevaIncidencia)
     } catch (error) {
+        console.log(error)
         return res.status(500).json(error)
     }
 }

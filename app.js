@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const { conectar } = require('./connection')
 const incidenciaRoute = require('./src/routes/incidencia_route')
+const usuarioRoute = require('./src/routes/usuario_route')
 const app = express()
 const bodyParser = require('body-parser')
 const port = 3000
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/incidencia', incidenciaRoute)
+app.use('/usuario', usuarioRoute)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
