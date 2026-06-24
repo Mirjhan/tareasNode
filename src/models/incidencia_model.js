@@ -16,9 +16,9 @@ Incidencia.init(
             type: DataTypes.CHAR(1),
             allowNull: false,
         },
-        imagen:{
+        imagen: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         }
     },
     {
@@ -32,7 +32,10 @@ Incidencia.init(
 
 
 const sync = async () => {
-    await Incidencia.sync({ force: false })
+    await Incidencia.sync({ alter: false })
+
+    // FORCE -> fuerzas, se elimina todo (tabla y registros) y se vuelve a crear  
+    // ALTER -> alterar, el tratara de hacer el cambio si es viable.
 }
 
 sync()

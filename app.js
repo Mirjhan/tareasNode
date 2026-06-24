@@ -1,21 +1,17 @@
 const express = require('express')
-const morgan = require('morgan')
+
 const { conectar } = require('./connection')
 const incidenciaRoute = require('./src/routes/incidencia_route')
 const usuarioRoute = require('./src/routes/usuario_route')
+const setMiddlewares = require('./src/utils/middlewares/config')
 const app = express()
-const bodyParser = require('body-parser')
-const port = 3000
+const { PORT } = process.env
 
-app.use('/public', express.static('public'))
-app.use(morgan('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
+setMiddlewares(app)
 app.use('/incidencia', incidenciaRoute)
 app.use('/usuario', usuarioRoute)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`)
   conectar()
 })

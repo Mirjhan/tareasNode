@@ -70,6 +70,4 @@ const sync = async () => {
 
 sync()
 
-
-
 module.exports = Usuario
