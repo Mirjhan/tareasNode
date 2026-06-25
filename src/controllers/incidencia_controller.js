@@ -1,12 +1,10 @@
-const Incidencia = require('../models/incidencia_model')
+const Incidencia = require('../models/incidencia_model');
+const getPromise = require('../utils/helpers');
 
 const getIncidencia = async (req, res) => {
-    try {
-        const incidencias = await Incidencia.findAll();
-        return res.status(200).json(incidencias)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
+        const [error, incidencias] = await getPromise(Incidencia.findAll());
+        if(error) return res.status(500).json(error)
+        return res.status(200).json(incidencias)  
 }
 
 const createIncidencia = async (req, res) => {
@@ -43,39 +41,33 @@ const updateIncidencia = async (req, res) => {
 const deleteIncidencia = async (req, res) => {
     
     const { id } = req.params
-    try {
-
-        const incidenciaEliminada = await Incidencia.findByPk(id)
-        await incidenciaEliminada.destroy()
-        return res.status(200).json(incidenciaEliminada)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
+        const [errB, incidencia ] = await getPromise(Incidencia.findByPk(id))
+        if(errB) return res.status(500).json('Error al buscar')
+        const [errDestroy, _] = await getPromise(incidencia.destroy()) 
+        if(errDestroy) return res.status(500).json('Error al eliminar')
+        return res.status(200).json(incidencia)
 }
 
 const createIncidenciaConImagen = async (req, res) => {
-    try {
         const { nombre, descripcion, estado } = req.body
         const { filename }= req.file
-        const nuevaIncidencia = await Incidencia.create({
+        const [error, nuevaIncidencia] = await getPromise(Incidencia.create({
             nombre: nombre,
             descripcion: descripcion,
             estado: estado,
             imagen: filename,
-        })
+        })) 
+        if(error) return res.status(500).json(error)
          return res.status(200).json(nuevaIncidencia)
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json(error)
-    }
 }
 
 const updateIncidenciaConImagen = async (req, res) => {
-    try {
         const {id, nombre, descripcion, estado } = req.body
-        const result = await Incidencia.findByPk(id)
+        const [errB, incidencia] = await getPromise(Incidencia.findByPk(id))
+        if(errB) return res.status(500).json('Error al buscar')
+            if(!incidencia) return res.status(404).json('Incidencia no existe') 
 
-        result.set({
+        incidencia.set({
             nombre: nombre,
             descripcion: descripcion,
             estado: estado,
@@ -84,12 +76,9 @@ const updateIncidenciaConImagen = async (req, res) => {
         if (req.file) {
             result.imagen = req.file.filename
         }
-        await result.save()
-        return res.status(200).json(result)
-    } catch (error) {
-        return res.status(500).json(error)
-        
-    }
+        const [errSave, _] = await getPromise(incidencia.save()) 
+        if(errSave) return res.status(500).json('Error al guardar')
+        return res.status(200).json(incidencia)
 }
 module.exports = {
     getIncidencia,

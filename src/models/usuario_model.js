@@ -32,7 +32,7 @@ Usuario.init(
             allowNull: false,
         },
         telefono: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(12),
             allowNull: false,
         },
         email: {
